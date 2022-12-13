@@ -1,13 +1,9 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, current_app
 import json
 from src import db
 
 
 managers = Blueprint('managers', __name__)
-
-@managers.route('/test', methods=['GET'])
-def testThis():
-    return f'<h1>"Hello!"</h1>'
 
 @managers.route("/reviews")
 def reviews():
@@ -19,6 +15,16 @@ def reviews():
    for row in theData:
        json_data.append(dict(zip(row_headers, row)))
    return jsonify(json_data)
+
+@managers.route("/reply", methods=['POST'])
+def orderDelivered():
+    current_app.logger.info(request.form)
+    cur = db.get_db().cursor()
+    message = request.form['message']
+    reviewID = request.form['reviewID']
+    cur.execute(f'UPDATE Review SET mgrResponse = "{message}" WHERE reviewID = {reviewID}')
+    db.get_db().commit()
+    return "Success!"
 
 @managers.route("/manager_view")
 def manager():
