@@ -3,20 +3,20 @@
 -- Create a new database.  You can change the name later.  You'll
 -- need this name in the FLASK API file(s),  the AppSmith 
 -- data source creation.
-create database cool_db;
+create database orders;
 
 -- Via the Docker Compose file, a special user called webapp will 
 -- be created in MySQL. We are going to grant that user 
 -- all privilages to the new database we just created. 
 -- TODO: If you changed the name of the database above, you need 
 -- to change it here too.
-grant all privileges on cool_db.* to 'webapp'@'%';
+grant all privileges on orders.* to 'webapp'@'%';
 flush privileges;
 
 -- -- Move into the database we just created.
 -- -- TODO: If you changed the name of the database above, you need to
 -- -- change it here too. 
-use cool_db;
+use orders;
 
 CREATE TABLE Customer (
     custName VARCHAR(100) NOT NULL,
@@ -308,7 +308,7 @@ CREATE TABLE Review (
     custID int NOT NULL,
     reviewID int NOT NULL UNIQUE,
     orderID int NOT NULL,
-    orderDate date,
+    orderDate Date,
     rating int,
     comment TEXT,
     managerID int,
@@ -325,9 +325,9 @@ CREATE TABLE Review (
 );
 
 insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
-    values (1, 1, 1, '2022-05-10', 5, 'very good', 1);
+    values (1, 1, 1, '2022-05-10', 4, 'The quesarito was very good, the taco could have been a bit crunchier', 1);
 insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
-    values (2, 2, 2, '2022-09-16', 3, 'bad', 2);
+    values (2, 2, 2, '2022-09-16', 3, 'This meal was a bit underwhelming. Will not be back.', 2);
 insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
     values (3, 3, 3, '2022-01-10', 2, 'eh', 3);
 insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
