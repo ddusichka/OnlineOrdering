@@ -41,11 +41,15 @@ def items_in_order(id):
         json_data.append(dict(zip(row_headers, row)))
     return jsonify(json_data)
 
-@app.route("/review/<reviewID>", methods=['POST'])
+@app.route("/reply", methods=['POST'])
 def orderDelivered():
     app.logger.info(request.form)
     cur = db_connection.get_db().cursor()
-    cur.execute("update Reviews set mgrResponse =  ")
+    message = request.form['message']
+    reviewID = request.form['reviewID']
+    cur.execute(f'UPDATE Review SET mgrResponse = "{message}" WHERE reviewID = {reviewID}')
+    db_connection.get_db().commit()
+    return "Success!"
     
 
 if __name__ == '__main__':

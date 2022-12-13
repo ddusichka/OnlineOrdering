@@ -311,6 +311,7 @@ CREATE TABLE Review (
     orderDate Date,
     rating int,
     comment TEXT,
+    mgrResponse TEXT,
     managerID int,
     PRIMARY KEY(reviewID),
 
@@ -324,16 +325,16 @@ CREATE TABLE Review (
         FOREIGN KEY (managerID) REFERENCES RestaurantManager (managerID)
 );
 
-insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
-    values (1, 1, 1, '2022-05-10', 4, 'The quesarito was very good, the taco could have been a bit crunchier', 1);
-insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
-    values (2, 2, 2, '2022-09-16', 3, 'This meal was a bit underwhelming. Will not be back.', 2);
-insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
-    values (3, 3, 3, '2022-01-10', 2, 'eh', 3);
-insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
-    values (4, 4, 4, '2021-05-10', 5, 'cool', 4);
-insert into Review (custID, reviewID, orderID, orderDate, rating, comment, managerID) 
-    values (5, 5, 5, '2022-05-12', 3, null, 5);
+insert into Review (custID, reviewID, orderID, orderDate, rating, comment, mgrResponse, managerID) 
+    values (1, 1, 1, '2022-05-10', 4, 'The quesarito was very good, the taco could have been a bit crunchier', null, 1);
+insert into Review (custID, reviewID, orderID, orderDate, rating, comment, mgrResponse, managerID) 
+    values (2, 2, 2, '2022-09-16', 3, 'This meal was a bit underwhelming. Will not be back.', null, 2);
+insert into Review (custID, reviewID, orderID, orderDate, rating, comment, mgrResponse, managerID) 
+    values (3, 3, 3, '2022-01-10', 2, 'eh', null, 3);
+insert into Review (custID, reviewID, orderID, orderDate, rating, comment, mgrResponse, managerID) 
+    values (4, 4, 4, '2021-05-10', 5, 'cool', null, 4);
+insert into Review (custID, reviewID, orderID, orderDate, rating, comment, mgrResponse, managerID) 
+    values (5, 5, 5, '2022-05-12', 3, null, null, 5);
 
 select restaurantName, o.orderID, o.streetAddress, mi.itemName, delivered 
 from (CustomerOrders o JOIN Driver d on (o.driverID = d.empID) 

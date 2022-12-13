@@ -12,7 +12,7 @@ def testThis():
 @managers.route("/reviews")
 def reviews():
    cur = db.get_db().cursor()
-   cur.execute('select orderID, reviewID, rating, comment, DATE_FORMAT(orderDate, "%m-%d-%Y") as date from Review')
+   cur.execute('select orderID, reviewID, rating, comment, mgrResponse, DATE_FORMAT(orderDate, "%m-%d-%Y") as date from Review')
    row_headers = [x[0] for x in cur.description]
    json_data = []
    theData = cur.fetchall()
